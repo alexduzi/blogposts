@@ -4,6 +4,7 @@ import com.alexduzi.blogposts.models.dto.UserDTO;
 import com.alexduzi.blogposts.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,12 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAll() {
         List<UserDTO> result = userService.findAll();
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+        UserDTO result = userService.findById(id);
         return ResponseEntity.ok().body(result);
     }
 }

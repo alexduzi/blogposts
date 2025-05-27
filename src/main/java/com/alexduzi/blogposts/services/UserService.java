@@ -1,6 +1,8 @@
 package com.alexduzi.blogposts.services;
 
+import com.alexduzi.blogposts.exceptions.ResourceNotFoundException;
 import com.alexduzi.blogposts.models.dto.UserDTO;
+import com.alexduzi.blogposts.models.entities.User;
 import com.alexduzi.blogposts.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,11 @@ public class UserService {
 
     public List<UserDTO> findAll() {
         return userRepository.findAll().stream().map(UserDTO::new).toList();
+    }
+
+    public UserDTO findById(String id) {
+        User entity = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        return new UserDTO(entity);
     }
 }
