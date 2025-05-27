@@ -12,8 +12,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String id, String text, Instant moment, Author author) {
-        this.id = id;
+    public Comment(String text, Instant moment, Author author) {
         this.text = text;
         this.moment = moment;
         this.author = author;
