@@ -6,6 +6,8 @@ import com.alexduzi.blogposts.models.entities.Post;
 import com.alexduzi.blogposts.repositories.PostRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Service
@@ -29,6 +31,21 @@ public class PostService {
 
     public List<PostDTO> findByTitle(String title) {
         return postRepository.findByTitleContainingIgnoreCase(title).stream().map(PostDTO::new).toList();
+    }
+
+    public List<PostDTO> fullSearch(String text, String start, String end) {
+        Instant startMoment = convertMoment(start, Instant.ofEpochMilli(0L));
+        Instant endMoment = convertMoment(start, Instant.now());
+
+        return postRepository.fullSearch(text, startMoment, endMoment).stream().map(PostDTO::new).toList();
+    }
+
+    private Instant convertMoment(String originalString, Instant alternative) {
+        try {
+            return Instant.parse(originalString);
+        } catch (DateTimeParseException e) {
+            return alternative;
+        }
     }
 
     public PostDTO insert(PostDTO postDTO) {
