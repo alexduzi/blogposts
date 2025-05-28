@@ -3,6 +3,7 @@ package com.alexduzi.blogposts.models.dto;
 import com.alexduzi.blogposts.models.embedded.Author;
 import com.alexduzi.blogposts.models.embedded.Comment;
 import com.alexduzi.blogposts.models.entities.Post;
+import com.alexduzi.blogposts.models.entities.User;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -73,5 +74,15 @@ public class PostDTO {
 
     public List<Comment> getComments() {
         return comments;
+    }
+
+    public Post toEntity() {
+        Post post = new Post();
+        post.setId(this.id);
+        post.setMoment(this.moment);
+        post.setTitle(this.title);
+        post.setBody(this.body);
+        post.setAuthor(this.author);
+        return post;
     }
 }

@@ -1,5 +1,6 @@
 package com.alexduzi.blogposts.models.entities;
 
+import com.alexduzi.blogposts.models.dto.PostDTO;
 import com.alexduzi.blogposts.models.embedded.Author;
 import com.alexduzi.blogposts.models.embedded.Comment;
 import org.springframework.data.annotation.Id;
@@ -75,5 +76,23 @@ public class Post {
 
     public List<Comment> getComments() {
         return comments;
+    }
+
+    public PostDTO toDto() {
+        PostDTO postDto = new PostDTO();
+        postDto.setId(this.id);
+        postDto.setMoment(this.moment);
+        postDto.setTitle(this.title);
+        postDto.setBody(this.body);
+        postDto.setAuthor(this.author);
+        return postDto;
+    }
+
+    public Post copyFrom(PostDTO postDTO) {
+        this.setAuthor(postDTO.getAuthor());
+        this.setBody(postDTO.getBody());
+        this.setTitle(postDTO.getTitle());
+        this.setMoment(postDTO.getMoment());
+        return this;
     }
 }
