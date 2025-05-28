@@ -40,4 +40,12 @@ public class UserDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public User toEntity() {
+        User user = new User();
+        user.setId(this.id);
+        user.setName(this.name);
+        user.setEmail(this.email);
+        return user;
+    }
 }

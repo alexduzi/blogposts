@@ -1,5 +1,6 @@
 package com.alexduzi.blogposts.models.entities;
 
+import com.alexduzi.blogposts.models.dto.UserDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -54,6 +55,14 @@ public class User {
 
     public List<Post> getPosts() {
         return posts;
+    }
+
+    public UserDTO toDto() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(this.id);
+        userDTO.setName(this.name);
+        userDTO.setEmail(this.email);
+        return userDTO;
     }
 
     @Override

@@ -26,4 +26,10 @@ public class UserService {
 
         return new UserDTO(entity);
     }
+
+    public UserDTO insert(UserDTO userDTO) {
+        User entity = userDTO.toEntity();
+        entity = userRepository.save(entity);
+        return entity.toDto();
+    }
 }
