@@ -1,5 +1,6 @@
 package com.alexduzi.blogposts.controllers;
 
+import com.alexduzi.blogposts.models.dto.PostDTO;
 import com.alexduzi.blogposts.models.dto.UserDTO;
 import com.alexduzi.blogposts.services.UserService;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +49,11 @@ public class UserController {
     public ResponseEntity<Void> update(@PathVariable String id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<PostDTO>> findByUserPosts(@PathVariable String id) {
+        List<PostDTO> result = userService.getUserPosts(id);
+        return ResponseEntity.ok().body(result);
     }
 }

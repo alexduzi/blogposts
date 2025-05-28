@@ -1,6 +1,7 @@
 package com.alexduzi.blogposts.services;
 
 import com.alexduzi.blogposts.exceptions.ResourceNotFoundException;
+import com.alexduzi.blogposts.models.dto.PostDTO;
 import com.alexduzi.blogposts.models.dto.UserDTO;
 import com.alexduzi.blogposts.models.entities.User;
 import com.alexduzi.blogposts.repositories.UserRepository;
@@ -38,6 +39,11 @@ public class UserService {
         entity = entity.copyFrom(userDTO);
         entity = userRepository.save(entity);
         return entity.toDto();
+    }
+
+    public List<PostDTO> getUserPosts(String id) {
+        User user = getEntity(id);
+        return user.getPosts().stream().map(PostDTO::new).toList();
     }
 
     private User getEntity(String id) {
