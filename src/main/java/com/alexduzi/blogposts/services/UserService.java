@@ -22,7 +22,7 @@ public class UserService {
     }
 
     public UserDTO findById(String id) {
-        User entity = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User entity = getEntity(id);
 
         return new UserDTO(entity);
     }
@@ -31,5 +31,16 @@ public class UserService {
         User entity = userDTO.toEntity();
         entity = userRepository.save(entity);
         return entity.toDto();
+    }
+
+    public UserDTO update(String id, UserDTO userDTO) {
+        User entity = getEntity(id);
+        entity = entity.copyFrom(userDTO);
+        entity = userRepository.save(entity);
+        return entity.toDto();
+    }
+
+    private User getEntity(String id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }

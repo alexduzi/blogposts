@@ -34,11 +34,13 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserDTO> insert(@RequestBody UserDTO userDTO) {
         UserDTO result = userService.insert(userDTO);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(result.getId())
-                .toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(result.getId()).toUri();
         return ResponseEntity.created(location).body(result);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody UserDTO userDTO) {
+        UserDTO result = userService.update(id, userDTO);
+        return ResponseEntity.ok().body(result);
     }
 }

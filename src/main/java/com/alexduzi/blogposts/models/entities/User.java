@@ -65,6 +65,12 @@ public class User {
         return userDTO;
     }
 
+    public User copyFrom(UserDTO userDTO) {
+        this.setName(userDTO.getName());
+        this.setEmail(userDTO.getEmail());
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof User user)) return false;
